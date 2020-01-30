@@ -185,7 +185,12 @@ public class ArticleListActivity extends AppCompatActivity implements
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+
+            float aspect = mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO);
+            String image_url = mCursor.getString(ArticleLoader.Query.THUMB_URL);
+            Log.d(TAG, image_url + " image url and " + aspect + " aspect ratio; " );
         }
 
         @Override
