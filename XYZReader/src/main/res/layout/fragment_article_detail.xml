@@ -23,6 +23,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
+
             <FrameLayout
                 android:id="@+id/photo_container"
                 android:layout_width="match_parent"
@@ -69,7 +70,6 @@
             android:maxWidth="@dimen/detail_card_max_width"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:id="@+id/meta_bar"
                 android:layout_width="match_parent"
@@ -102,8 +102,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="#8fff" />
             </LinearLayout>
-
-
             <TextView
                 android:id="@+id/article_body"
                 style="@style/text_body_style"
@@ -115,7 +113,6 @@
                 android:paddingBottom="@dimen/detail_body_bottom_margin"
                 android:textColor="@color/color_secondary_text"
                 android:textColorLink="@color/color_accent" />
-
 
         </com.example.xyzreader.ui.MaxWidthLinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -131,8 +128,8 @@
         android:elevation="@dimen/fab_elevation"
         android:src="@drawable/ic_share"
         android:stateListAnimator="@anim/fab_state_list_anim"
-        app:fabSize="normal"
-        app:layout_anchor="@+id/meta_bar"
+        app:fabSize="mini"
+        app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:pressedTranslationZ="12dp" />
 
