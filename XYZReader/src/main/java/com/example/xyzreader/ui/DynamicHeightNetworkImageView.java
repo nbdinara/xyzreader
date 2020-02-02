@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -10,6 +11,8 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class DynamicHeightNetworkImageView extends NetworkImageView {
     private float mAspectRatio = 1.7f;
+    private int mOrientation;
+
 
     public DynamicHeightNetworkImageView(Context context) {
         super(context);
@@ -23,8 +26,9 @@ public class DynamicHeightNetworkImageView extends NetworkImageView {
         super(context, attrs, defStyle);
     }
 
-    public void setAspectRatio(float aspectRatio) {
+    public void setAspectRatio(float aspectRatio, int orientation) {
         mAspectRatio = aspectRatio;
+        mOrientation = orientation;
         requestLayout();
     }
 
@@ -34,12 +38,22 @@ public class DynamicHeightNetworkImageView extends NetworkImageView {
         Log.d(TAG, "onMeasure: heightMeasureSpec " + heightMeasureSpec);
         Log.d(TAG, "onMeasure: getMeasuredWidth() " + getWidth());
         Log.d(TAG, "onMeasure: getMeasuredHeight() " + getHeight());
-        //mAspectRatio = measuredWidth/measuredHeight;
         int measuredHeight = MeasureSpec.getSize(widthMeasureSpec);
-        measuredHeight = (int) (measuredHeight * mAspectRatio);
+
+        if ((mOrientation == Configuration.ORIENTATION_LANDSCAPE)
+               /* && (((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                        != Configuration.SCREENLAYOUT_SIZE_NORMAL)  ||
+                        ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                                != Configuration.SCREENLAYOUT_SIZE_SMALL))*/){
+            measuredHeight = (int) (measuredHeight / mAspectRatio);
+        } else{
+            measuredHeight = (int) (measuredHeight * mAspectRatio);
+
+        }
+
+        //mAspectRatio = measuredWidth/measuredHeight;
 
         int  measuredHeightSpec = MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY);
-
         super.onMeasure(widthMeasureSpec, measuredHeightSpec);
     }
 }

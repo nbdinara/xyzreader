@@ -159,6 +159,12 @@ public class ArticleDetailFragment extends Fragment implements
                         == Configuration.SCREENLAYOUT_SIZE_LARGE)){
             appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.app_bar);
             toolbar = mRootView.findViewById(R.id.toolbar);
+        } else if ((orientation == Configuration.ORIENTATION_LANDSCAPE) &&
+                ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                        == Configuration.SCREENLAYOUT_SIZE_NORMAL)){
+            appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.app_bar);
+            toolbar = mRootView.findViewById(R.id.toolbar);
+
         }
 
 
@@ -275,6 +281,11 @@ public class ArticleDetailFragment extends Fragment implements
                     ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
                             == Configuration.SCREENLAYOUT_SIZE_LARGE)){
                 displayToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+            } else if ((orientation == Configuration.ORIENTATION_LANDSCAPE) &&
+                    ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                            == Configuration.SCREENLAYOUT_SIZE_NORMAL)){
+                displayToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+
             }
 
             mRootView.setAlpha(0);
