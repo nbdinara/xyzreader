@@ -154,6 +154,11 @@ public class ArticleDetailFragment extends Fragment implements
                         != Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
             appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.app_bar);
             toolbar = mRootView.findViewById(R.id.toolbar);
+        } else if ((orientation == Configuration.ORIENTATION_PORTRAIT) &&
+                ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                        == Configuration.SCREENLAYOUT_SIZE_LARGE)){
+            appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.app_bar);
+            toolbar = mRootView.findViewById(R.id.toolbar);
         }
 
 
@@ -193,7 +198,7 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
 
-    private void dispalyToolbarTitle(final String title){
+    private void displayToolbarTitle(final String title){
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = true;
@@ -206,6 +211,10 @@ public class ArticleDetailFragment extends Fragment implements
                 }
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(title);
+                    collapsingToolbarLayout.setExpandedTitleColor(getResources()
+                            .getColor(R.color.color_text_icons));
+                    collapsingToolbarLayout.setCollapsedTitleTextColor(getResources()
+                            .getColor(R.color.color_text_icons));
                     toolbar.setTitleMarginStart((int)(getResources().getDimension(R.dimen.toolbar_padding_left)
                             / getResources().getDisplayMetrics().density));
                     isShow = true;
@@ -260,8 +269,12 @@ public class ArticleDetailFragment extends Fragment implements
                     ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
                             != Configuration.SCREENLAYOUT_SIZE_XLARGE)){
 
-                dispalyToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+                displayToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
 
+            } else if ((orientation == Configuration.ORIENTATION_PORTRAIT) &&
+                    ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                            == Configuration.SCREENLAYOUT_SIZE_LARGE)){
+                displayToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
             }
 
             mRootView.setAlpha(0);
