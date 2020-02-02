@@ -4,4 +4,10 @@
 
     <dimen name="detail_photo_height">600dp</dimen>
     <dimen name="detail_card_top_margin">256dp</dimen>
+    <integer name="list_column_count">4</integer>
+    <dimen name="detail_gradient_view_height">336dp</dimen>
+    <dimen name="detail_card_max_width">800dp</dimen>
+    <dimen name="fab_margin">104dp</dimen>
+
+
 </resources>

@@ -4,11 +4,10 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 
 import java.text.ParseException;
@@ -20,7 +19,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ShareCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -66,6 +64,7 @@ public class ArticleDetailFragment extends Fragment implements
     private boolean mIsCard = false;
     private int mStatusBarFullOpacityBottom;
     private Toolbar toolbar;
+    private int orientation;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -146,8 +145,17 @@ public class ArticleDetailFragment extends Fragment implements
         });*/
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) mRootView.findViewById(R.id.toolbar_layout);
-        appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.app_bar);
-        toolbar = mRootView.findViewById(R.id.toolbar);
+
+        orientation = getResources().getConfiguration().orientation;
+        if (((orientation != Configuration.ORIENTATION_LANDSCAPE) &&
+                ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                        != Configuration.SCREENLAYOUT_SIZE_LARGE)) &&
+                ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                        != Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
+            appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.app_bar);
+            toolbar = mRootView.findViewById(R.id.toolbar);
+        }
+
 
         mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
         mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
@@ -198,7 +206,8 @@ public class ArticleDetailFragment extends Fragment implements
                 }
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(title);
-                    toolbar.setTitleMarginStart(72);
+                    toolbar.setTitleMarginStart((int)(getResources().getDimension(R.dimen.toolbar_padding_left)
+                            / getResources().getDisplayMetrics().density));
                     isShow = true;
                 } else if(isShow) {
                     collapsingToolbarLayout.setTitle(" ");//careful there should a space between double quote otherwise it wont work
@@ -245,7 +254,16 @@ public class ArticleDetailFragment extends Fragment implements
         //bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
-            dispalyToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+            if (((orientation != Configuration.ORIENTATION_LANDSCAPE) &&
+                    ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                            != Configuration.SCREENLAYOUT_SIZE_LARGE)) &&
+                    ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                            != Configuration.SCREENLAYOUT_SIZE_XLARGE)){
+
+                dispalyToolbarTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+
+            }
+
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
