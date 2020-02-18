@@ -1,6 +1,6 @@
 = XYZ Reader
 
-XYZ Reader application is the project of the Udacity's Android Nanodegree program. It is a mock RSS feed reader featuring banner photos and headlines. Starter code is located [here](https://github.com/udacity/xyz-reader-starter-code).
+XYZ Reader application is the project of the Udacity's Android Nanodegree program. It is a mock RSS feed reader featuring banner photos and headlines. Starter code is located [here](https://github.com/udacity/xyz-reader-starter-code) .
 
 ## Changes, was applied
 
