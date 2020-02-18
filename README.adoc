@@ -1,3 +1,15 @@
-= XYZ Reader Starter Code
+= XYZ Reader
 
-This repository stores the starter code for the XYZ Reader project in Udacity's Android Nanodegree.
+XYZ Reader application is the project of the Udacity's Android Nanodegree program. It is a mock RSS feed reader featuring banner photos and headlines. Starter code is located [here](https://github.com/udacity/xyz-reader-starter-code).
+
+## Changes, was applied
+
+Improvement of the the UI to make XYZ Reader conform to Material Design.
+
+## Topics covered
+
+* Understanding the fundamentals of Android design.
+* Applying Material Design guidelines to a mobile application.
+* Separating an interface into surfaces.
+* Effectively using transitions and motion.
+
